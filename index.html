@@ -1,742 +1,735 @@
-```html
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroMind Pro & AgroAssist</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        agro: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            800: '#166534',
-                            900: '#14532d',
-                            950: '#052e16',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js for graphs -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>AgroAssist Pro - InteligÃªncia AgronÃ´mica e GestÃ£o de Campo</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .glass-card {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(34, 197, 94, 0.2);
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, #064e3b, #0f172a);
+            border-bottom: 2px solid var(--primary);
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* Menu de Abas */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--card-bg);
+        }
+
+        .tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .tabs::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--card-border);
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            border-color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            background-color: #0f172a;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+        }
+
+        button.btn-action {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button.btn-action:hover {
+            background-color: var(--primary-dark);
+        }
+
+        button.btn-action:active {
+            transform: scale(0.98);
+        }
+
+        .result-box {
+            background-color: #0f172a;
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 20px;
+        }
+
+        .result-box h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .result-box p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--card-border);
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-agro-500 selection:text-white">
+<body>
 
-    <!-- Top Header -->
-    <header class="bg-slate-900 border-b border-agro-900/50 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-gradient-to-tr from-agro-600 to-agro-400 p-2.5 rounded-xl text-slate-950 shadow-lg shadow-agro-500/20">
-                    <i class="fa-solid fa-seedling text-xl"></i>
+    <header>
+        <h1>ðŸŒ± AgroAssist Pro</h1>
+        <p>Plataforma AvanÃ§ada de AuxÃ­lio AgronÃ´mico, MecanizaÃ§Ã£o e GestÃ£o de Safras</p>
+    </header>
+
+    <div class="container">
+        <!-- NavegaÃ§Ã£o de Abas -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-diagnostico')">ðŸ’¬ DiagnÃ³stico & IA</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-solo')">ðŸ§ª Solo & AdubaÃ§Ã£o</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-pulverizador')">ðŸ’¦ Pulverizador</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-plantadeira')">ðŸšœ Plantadeira</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-colheitadeira')">ðŸŒ¾ Colheitadeira</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-culturas')">ðŸ“Š Culturas & Clima</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-financeiro')">ðŸ’° GestÃ£o & Custos</button>
+        </div>
+
+        <!-- ABA 1: DiagnÃ³stico -->
+        <div id="tab-diagnostico" class="tab-content active">
+            <div class="card">
+                <h2>ðŸ’¬ DiagnÃ³stico RÃ¡pido de Campo</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Descreva os sintomas visuais observados na lavoura para orientaÃ§Ã£o preliminar de manejo.</p>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Cultura Principal:</label>
+                    <select id="diag-cultura">
+                        <option value="soja">Soja</option>
+                        <option value="milho">Milho</option>
+                        <option value="cana">Cana-de-AÃ§Ãºcar</option>
+                        <option value="citros">Citros</option>
+                        <option value="sorgo">Sorgo</option>
+                        <option value="horticas">HortaliÃ§as</option>
+                    </select>
                 </div>
-                <div>
-                    <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-agro-400 to-emerald-200 bg-clip-text text-transparent">AgroMind Pro</h1>
-                    <p class="text-xs text-slate-400">Inteligência Agronômica & Gestão de Safra</p>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Descreva o sintoma ou problema:</label>
+                    <textarea id="diag-texto" rows="4" placeholder="Ex: Folhas baixeiras com clorose, presenÃ§a de lagartas, murcha em reboleiras..."></textarea>
                 </div>
-            </div>
-            
-            <!-- Profile Switcher & Actions -->
-            <div class="flex items-center space-x-4">
-                <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-1 flex items-center">
-                    <button onclick="switchProfile('produtor')" id="btn-profile-produtor" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-agro-600 text-white shadow">
-                        <i class="fa-solid fa-tractor mr-1.5"></i> Produtor Rural
-                    </button>
-                    <button onclick="switchProfile('agronomo')" id="btn-profile-agronomo" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:text-white">
-                        <i class="fa-solid fa-graduation-cap mr-1.5"></i> Eng. Agrônomo
-                    </button>
-                </div>
-                <div class="hidden md:flex items-center space-x-2 text-xs text-emerald-400 bg-emerald-950/40 border border-emerald-800/50 px-3 py-1.5 rounded-lg">
-                    <i class="fa-solid fa-circle text-[8px] animate-pulse"></i>
-                    <span id="active-profile-badge">Perfil: Produtor Rural</span>
+                <button class="btn-action" onclick="analisarDiagnostico()">ðŸ” Gerar Parecer TÃ©cnico</button>
+
+                <div id="diag-resultado" class="result-box" style="display:none; margin-top:20px;">
+                    <h3>Parecer TÃ©cnico Preliminar:</h3>
+                    <p id="diag-output-text"></p>
                 </div>
             </div>
         </div>
-    </header>
 
-    <!-- Main Wrapper -->
-    <div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Sidebar Navigation -->
-        <aside class="lg:col-span-3 space-y-2">
-            <div class="glass-card rounded-2xl p-3 shadow-xl space-y-1">
-                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all bg-agro-600/20 text-agro-400 border border-agro-500/30">
-                    <i class="fa-solid fa-chart-pie w-5"></i>
-                    <span>Dashboard Inicial</span>
-                </button>
-                <button onclick="switchTab('culturas')" id="nav-culturas" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-900/60 hover:text-white">
-                    <i class="fa-solid fa-book-open w-5"></i>
-                    <span>Diagnóstico & Culturas</span>
-                </button>
-                <button onclick="switchTab('solo')" id="nav-solo" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-900/60 hover:text-white">
-                    <i class="fa-solid fa-flask w-5"></i>
-                    <span>Calculadora de Solo</span>
-                </button>
-                <button onclick="switchTab('mecanizacao')" id="nav-mecanizacao" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-900/60 hover:text-white">
-                    <i class="fa-solid fa-gears w-5"></i>
-                    <span>Mecanização & Bicos</span>
-                </button>
-                <button onclick="switchTab('financeiro')" id="nav-financeiro" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-900/60 hover:text-white">
-                    <i class="fa-solid fa-wallet w-5"></i>
-                    <span>Gestão Financeira</span>
-                </button>
-                <button onclick="switchTab('notas')" id="nav-notas" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-900/60 hover:text-white">
-                    <i class="fa-solid fa-notes-medical w-5"></i>
-                    <span>Anotações & Notas</span>
-                </button>
-            </div>
-
-            <!-- Quick Weather / Farm status widget -->
-            <div class="glass-card rounded-2xl p-4 shadow-xl border border-agro-900/40">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Clima & Campo</span>
-                    <i class="fa-solid fa-cloud-sun text-amber-400"></i>
-                </div>
-                <div class="space-y-2 text-xs">
-                    <div class="flex justify-between">
-                        <span class="text-slate-400">Umidade Solo:</span>
-                        <span class="text-emerald-400 font-medium">68% (Adequada)</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-400">Previsão Chuva:</span>
-                        <span class="text-slate-200 font-medium">18mm (Próx. 48h)</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-400">Safra Ativa:</span>
-                        <span class="text-agro-400 font-medium">2026/2026 Verão</span>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Main Content Area -->
-        <main class="lg:col-span-9 space-y-6">
-
-            <!-- TAB 1: DASHBOARD -->
-            <section id="tab-dashboard" class="space-y-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="glass-card p-5 rounded-2xl border border-slate-800">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-slate-400 font-medium">Área Produtiva</span>
-                            <div class="p-2 bg-agro-500/10 text-agro-400 rounded-lg"><i class="fa-solid fa-map"></i></div>
-                        </div>
-                        <div class="mt-4">
-                            <h3 class="text-2xl font-bold text-white">450 ha</h3>
-                            <p class="text-xs text-emerald-400 mt-1"><i class="fa-solid fa-arrow-up"></i> Talhões ativos</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-5 rounded-2xl border border-slate-800">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-slate-400 font-medium">Custo Total Safra</span>
-                            <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg"><i class="fa-solid fa-dollar-sign"></i></div>
-                        </div>
-                        <div class="mt-4">
-                            <h3 id="dash-total-custo" class="text-2xl font-bold text-white">R$ 0,00</h3>
-                            <p class="text-xs text-slate-400 mt-1">Insumos + Maquinário</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-5 rounded-2xl border border-slate-800">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-slate-400 font-medium">Lucro Estimado</span>
-                            <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i class="fa-solid fa-chart-line"></i></div>
-                        </div>
-                        <div class="mt-4">
-                            <h3 id="dash-total-lucro" class="text-2xl font-bold text-emerald-400">R$ 0,00</h3>
-                            <p id="dash-lucro-perc" class="text-xs text-emerald-400 mt-1">Margem: 0%</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-5 rounded-2xl border border-slate-800">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-slate-400 font-medium">Status Operacional</span>
-                            <div class="p-2 bg-blue-500/10 text-blue-400 rounded-lg"><i class="fa-solid fa-shield-halved"></i></div>
-                        </div>
-                        <div class="mt-4">
-                            <h3 class="text-2xl font-bold text-white" id="dash-status-texto">Estável</h3>
-                            <p class="text-xs text-blue-400 mt-1">Assistência Ativa</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions & Banner -->
-                <div class="glass-card p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900 to-agro-950/40 relative overflow-hidden border border-agro-500/20">
-                    <div class="relative z-10 max-w-xl">
-                        <span class="bg-agro-500/20 text-agro-300 text-xs px-3 py-1 rounded-full font-semibold">Tecnologia AgroMind</span>
-                        <h2 class="text-xl font-bold text-white mt-3">Bem-vindo ao Futuro da Agronomia de Precisão</h2>
-                        <p class="text-slate-300 text-sm mt-2">Auxílio completo para tomada de decisões no campo, cálculos de solo automatizados, recomendações de defensivos e gestão de margens para produtores e agrônomos.</p>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <button onclick="switchTab('solo')" class="px-4 py-2 bg-agro-600 hover:bg-agro-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-agro-600/30 transition-all">
-                                <i class="fa-solid fa-flask mr-2"></i> Calcular Calagem & Adubação
-                            </button>
-                            <button onclick="switchTab('culturas')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 transition-all">
-                                <i class="fa-solid fa-book-open mr-2"></i> Consultar Fichas de Culturas
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TAB 2: DIAGNÓSTICO & CULTURAS -->
-            <section id="tab-culturas" class="space-y-6 hidden">
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                        <div>
-                            <h2 class="text-lg font-bold text-white"><i class="fa-solid fa-book-open text-agro-400 mr-2"></i> Guia de Culturas & Diagnóstico de Pragas</h2>
-                            <p class="text-xs text-slate-400">Consulte zoneamento, rotação e tratamento fitossanitário para cada cultura.</p>
-                        </div>
-                        <select id="cultura-select" onchange="loadCulturaData()" class="bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-xl px-4 py-2 focus:ring-2 focus:ring-agro-500 outline-none">
-                            <option value="soja">Soja (Glycine max)</option>
-                            <option value="milho">Milho (Zea mays)</option>
-                            <option value="cana">Cana-de-Açúcar (Saccharum officinarum)</option>
-                            <option value="sorgo">Sorgo (Sorghum bicolor)</option>
-                            <option value="citros">Citros (Laranja/Limão)</option>
-                            <option value="hortalicas">Hortaliças (Folhosas/Frutos)</option>
-                            <option value="frutiferas">Frutíferas (Geral)</option>
+        <!-- ABA 2: Solo & AdubaÃ§Ã£o -->
+        <div id="tab-solo" class="tab-content">
+            <div class="card">
+                <h2>ðŸ§ª Calculadora de Calagem e AdubaÃ§Ã£o</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Insira os dados da anÃ¡lise de solo para calcular calagem (PRNT) e recomendaÃ§Ã£o de nutrientes.</p>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Cultura Alvo:</label>
+                        <select id="solo-cultura">
+                            <option value="soja">Soja (V% desejada: 60%)</option>
+                            <option value="milho">Milho (V% desejada: 70%)</option>
+                            <option value="cana">Cana-de-AÃ§Ãºcar (V% desejada: 60%)</option>
+                            <option value="citros">Citros (V% desejada: 70%)</option>
+                            <option value="sorgo">Sorgo (V% desejada: 50%)</option>
                         </select>
                     </div>
-
-                    <!-- Cultura Details Display -->
-                    <div id="cultura-detalhes" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- Javascript will inject culture specs here -->
+                    <div class="form-group">
+                        <label>pH em CaCl2:</label>
+                        <input type="number" step="0.1" id="solo-ph" placeholder="Ex: 5.2">
+                    </div>
+                    <div class="form-group">
+                        <label>AlumÃ­nio ($Al^{3+}$) [cmolc/dmÂ³]:</label>
+                        <input type="number" step="0.1" id="solo-al" placeholder="Ex: 0.4">
+                    </div>
+                    <div class="form-group">
+                        <label>CÃ¡lcio ($Ca^{2+}$) [cmolc/dmÂ³]:</label>
+                        <input type="number" step="0.1" id="solo-ca" placeholder="Ex: 2.5">
+                    </div>
+                    <div class="form-group">
+                        <label>MagnÃ©sio ($Mg^{2+}$) [cmolc/dmÂ³]:</label>
+                        <input type="number" step="0.1" id="solo-mg" placeholder="Ex: 1.0">
+                    </div>
+                    <div class="form-group">
+                        <label>PotÃ¡ssio ($K^+$) [cmolc/dmÂ³]:</label>
+                        <input type="number" step="0.01" id="solo-k" placeholder="Ex: 0.25">
+                    </div>
+                    <div class="form-group">
+                        <label>PRNT do CalcÃ¡rio (%):</label>
+                        <input type="number" id="solo-prnt" placeholder="Ex: 80" value="80">
                     </div>
                 </div>
+                <button class="btn-action" onclick="calcularSolo()">âš™ï¸ Calcular CorreÃ§Ã£o e AdubaÃ§Ã£o</button>
 
-                <!-- Symptom / Problem Assistant -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <h3 class="text-md font-bold text-white mb-2"><i class="fa-solid fa-stethoscope text-agro-400 mr-2"></i> Assistente de Sintomas & Pragas na Lavoura</h3>
-                    <p class="text-xs text-slate-400 mb-4">Descreva o problema que sua cultura está sofrendo (ex: folhas amareladas, lagarta no cartucho, manchas nas folhas de ferrugem):</p>
-                    <textarea id="symptom-input" rows="3" placeholder="Ex: Notado desfolha acentuada na soja com presença de lagartas pequenas..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-slate-200 focus:ring-2 focus:ring-agro-500 outline-none resize-none"></textarea>
-                    <div class="mt-3 flex justify-end">
-                        <button onclick="analisarSintoma()" class="px-5 py-2 bg-agro-600 hover:bg-agro-500 text-white font-semibold text-xs rounded-xl shadow-lg transition-all">
-                            <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Gerar Diagnóstico Agronômico
-                        </button>
+                <div id="solo-resultado" class="result-box" style="display:none; margin-top:20px;">
+                    <h3>Resultados AgronÃ´micos:</h3>
+                    <div id="solo-output-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA 3: Pulverizador -->
+        <div id="tab-pulverizador" class="tab-content">
+            <div class="card">
+                <h2>ðŸ’¦ Regulagem e Bicos de PulverizaÃ§Ã£o</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Calcule a vazÃ£o exata por bico e selecione o modelo de ponta ideal de acordo com o alvo fitossanitÃ¡rio.</p>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Velocidade do Trator/Pulverizador (km/h):</label>
+                        <input type="number" step="0.5" id="pulv-vel" placeholder="Ex: 12">
                     </div>
-                    <div id="symptom-result" class="mt-4 hidden p-4 rounded-xl bg-slate-900/80 border border-agro-500/30 text-xs text-slate-300 space-y-2">
-                        <!-- Result injected -->
+                    <div class="form-group">
+                        <label>EspaÃ§amento entre Bicos na Barra (cm):</label>
+                        <input type="number" id="pulv-esp" placeholder="Ex: 50" value="50">
+                    </div>
+                    <div class="form-group">
+                        <label>Volume de Calda Desejado (L/ha):</label>
+                        <input type="number" id="pulv-volume" placeholder="Ex: 150" value="150">
+                    </div>
+                    <div class="form-group">
+                        <label>Alvo da AplicaÃ§Ã£o:</label>
+                        <select id="pulv-alvo">
+                            <option value="sistemico">Herbicida SistÃªmico / Solo (Gotas Grossas - Anti-deriva)</option>
+                            <option value="fungicida">Fungicida / Inseticida de Contato (Gotas MÃ©dias/Finas - Cobertura)</option>
+                            <option value="geral">InduÃ§Ã£o de Ar Geral (Alta Versatilidade)</option>
+                        </select>
                     </div>
                 </div>
-            </section>
+                <button class="btn-action" onclick="calcularPulverizador()">ðŸ› ï¸ Calcular VazÃ£o e Ponta de Bico</button>
 
-            <!-- TAB 3: CALCULADORA DE SOLO & ADUBAÇÃO -->
-            <section id="tab-solo" class="space-y-6 hidden">
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="mb-6">
-                        <h2 class="text-lg font-bold text-white"><i class="fa-solid fa-flask text-agro-400 mr-2"></i> Calculadora de Análise de Solo & Calagem</h2>
-                        <p class="text-xs text-slate-400">Insira os dados da sua amostra de solo para calcular a necessidade exata de corretivos e fertilizantes (N, P, K).</p>
+                <div id="pulv-resultado" class="result-box" style="display:none; margin-top:20px;">
+                    <h3>ParÃ¢metros de PulverizaÃ§Ã£o:</h3>
+                    <div id="pulv-output-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA 4: Plantadeira -->
+        <div id="tab-plantadeira" class="tab-content">
+            <div class="card">
+                <h2>ðŸšœ Regulagem de Plantadeiras & PopulaÃ§Ã£o de Plantas</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Calcule o nÃºmero de sementes por metro linear necessÃ¡rias para atingir a populaÃ§Ã£o desejada por hectare e a distÃ¢ncia entre sementes.</p>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Cultura:</label>
+                        <select id="plant-cultura">
+                            <option value="soja">Soja (PopulaÃ§Ã£o tÃ­pica: 250.000 a 320.000 pl/ha)</option>
+                            <option value="milho">Milho (PopulaÃ§Ã£o tÃ­pica: 55.000 a 75.000 pl/ha)</option>
+                            <option value="sorgo">Sorgo (PopulaÃ§Ã£o tÃ­pica: 150.000 a 220.000 pl/ha)</option>
+                        </select>
                     </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Tipo de Amostra</label>
-                            <select id="solo-tipo" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                                <option value="completa">Análise Completa (Ca, Mg, K, P, pH, V%)</option>
-                                <option value="simples">Análise Simples (pH, MO, P, K)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Cultura Alvo</label>
-                            <select id="solo-cultura" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                                <option value="soja">Soja (Alta exigência P e K)</option>
-                                <option value="milho">Milho (Alta exigência N e K)</option>
-                                <option value="cana">Cana-de-Açúcar</option>
-                                <option value="sorgo">Sorgo (Resistente / Moderada)</option>
-                                <option value="citros">Citros</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">pH Atual em CaCl2 / H2O</label>
-                            <input type="number" id="solo-ph" step="0.1" value="5.2" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Saturação de Bases Atual (V% Desejada: 60%)</label>
-                            <input type="number" id="solo-v-atual" value="45" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Teor de Fósforo (P) [mg/dm³]</label>
-                            <input type="number" id="solo-p" value="8.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Teor de Potássio (K) [cmolc/dm³]</label>
-                            <input type="number" id="solo-k" step="0.01" value="0.15" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
+                    <div class="form-group">
+                        <label>PopulaÃ§Ã£o Desejada (Plantas / Hectare):</label>
+                        <input type="number" id="plant-pop" placeholder="Ex: 300000" value="300000">
                     </div>
-
-                    <div class="flex justify-end">
-                        <button onclick="calcularSolo()" class="px-6 py-2.5 bg-agro-600 hover:bg-agro-500 text-white text-xs font-semibold rounded-xl shadow-lg transition-all">
-                            <i class="fa-solid fa-calculator mr-2"></i> Calcular Recomendação Técnica
-                        </button>
+                    <div class="form-group">
+                        <label>EspaÃ§amento entre Entrelinhas (cm):</label>
+                        <input type="number" id="plant-esp" placeholder="Ex: 45" value="45">
                     </div>
-
-                    <!-- Solo Results Box -->
-                    <div id="solo-resultados" class="mt-6 hidden border border-agro-500/30 rounded-xl p-5 bg-slate-900/70 space-y-4">
-                        <h4 class="text-sm font-bold text-agro-400 border-b border-slate-800 pb-2"><i class="fa-solid fa-file-invoice mr-2"></i> Laudo de Recomendação Agronômica de Adubação & Calagem</h4>
-                        <div id="solo-result-content" class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-                            <!-- Injected -->
-                        </div>
+                    <div class="form-group">
+                        <label>Taxa de GerminaÃ§Ã£o Esperada das Sementes (%):</label>
+                        <input type="number" id="plant-germ" placeholder="Ex: 95" value="95">
                     </div>
                 </div>
-            </section>
+                <button class="btn-action" onclick="calcularPlantadeira()">ðŸ“ Calcular Sementes por Metro</button>
 
-            <!-- TAB 4: MECANIZAÇÃO & PULVERIZAÇÃO -->
-            <section id="tab-mecanizacao" class="space-y-6 hidden">
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="mb-6">
-                        <h2 class="text-lg font-bold text-white"><i class="fa-solid fa-gears text-agro-400 mr-2"></i> Calculadora de Pulverização & Bicos</h2>
-                        <p class="text-xs text-slate-400">Calcule a vazão necessária, velocidade e o bico recomendado para aplicação eficiente de defensivos.</p>
+                <div id="plant-resultado" class="result-box" style="display:none; margin-top:20px;">
+                    <h3>Diretrizes de Plantio:</h3>
+                    <div id="plant-output-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA 5: Colheitadeira -->
+        <div id="tab-colheitadeira" class="tab-content">
+            <div class="card">
+                <h2>ðŸŒ¾ Monitoramento e Perdas na Colheita de GrÃ£os</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Avalie as perdas quantitativas de grÃ£os na plataforma e no sistema de trilha/separaÃ§Ã£o por saco coletor ($1m^2$).</p>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Cultura Colhida:</label>
+                        <select id="colh-cultura">
+                            <option value="soja">Soja (Peso de 1000 grÃ£os mÃ©dio: 160g)</option>
+                            <option value="milho">Milho (Peso de 1000 grÃ£os mÃ©dio: 300g)</option>
+                            <option value="sorgo">Sorgo (Peso de 1000 grÃ£os mÃ©dio: 25g)</option>
+                        </select>
                     </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Velocidade do Trator (km/h)</label>
-                            <input type="number" id="pulv-vel" value="8.0" step="0.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Espaçamento entre Bicos (cm)</label>
-                            <input type="number" id="pulv-esp" value="50" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Volume de Calda Desejado (L/ha)</label>
-                            <input type="number" id="pulv-volume" value="150" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Tipo de Alvo / Gotas</label>
-                            <select id="pulv-alvo" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                                <option value="sistemico">Fung./Inset. (Gotas Médias / Indução Ar)</option>
-                                <option value="contato">Herbicida Pré-Emergente (Gotas Grossas)</option>
-                                <option value="dessecacao">Dessecação (Gotas Finas/Médias)</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label>NÂº de GrÃ£os Contados em $1m^2$ (ChÃ£o):</label>
+                        <input type="number" id="colh-graos" placeholder="Ex: 4 de soja por mÂ² equivalem a ~1 saca/ha">
                     </div>
-
-                    <div class="flex justify-end">
-                        <button onclick="calcularPulverizador()" class="px-6 py-2.5 bg-agro-600 hover:bg-agro-500 text-white text-xs font-semibold rounded-xl shadow-lg transition-all">
-                            <i class="fa-solid fa-droplet mr-2"></i> Calcular Vazão & Indicar Bico
-                        </button>
-                    </div>
-
-                    <!-- Pulv Results -->
-                    <div id="pulv-resultados" class="mt-6 hidden border border-agro-500/30 rounded-xl p-5 bg-slate-900/70 space-y-3 text-xs">
-                        <!-- Injected -->
+                    <div class="form-group">
+                        <label>Produtividade Estimada (Sacas / Hectare):</label>
+                        <input type="number" id="colh-prod" placeholder="Ex: 60" value="60">
                     </div>
                 </div>
+                <button class="btn-action" onclick="calcularColheitadeira()">ðŸ“Š Calcular Perdas e EficiÃªncia</button>
 
-                <!-- Maquinário & Pivôs Guia -->
-                <div class="glass-card p-6 rounded-2xl">
-                    <h3 class="text-md font-bold text-white mb-3"><i class="fa-solid fa-tractor text-agro-400 mr-2"></i> Guia Rápido de Maquinário & Irrigação por Pivô</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                            <h4 class="font-bold text-agro-400 mb-1">Plantadeiras de Precisão</h4>
-                            <p class="text-slate-400">Recomendado checar distribuição longitudinal de sementes e pressão dos discos de corte para palhada pesada (plantio direto).</p>
-                        </div>
-                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                            <h4 class="font-bold text-agro-400 mb-1">Sistemas de Pivô Central</h4>
-                            <p class="text-slate-400">Ideal para lâminas de irrigação controlada. Monitorar uniformidade de rotação e pressões nos emissores finais.</p>
-                        </div>
-                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                            <h4 class="font-bold text-agro-400 mb-1">Pulverizadores Autopropelidos</h4>
-                            <p class="text-slate-400">Essencial calibração semanal de pontas e controle eletrônico de vazão por PWM para evitar deriva em horários de vento.</p>
-                        </div>
+                <div id="colh-resultado" class="result-box" style="display:none; margin-top:20px;">
+                    <h3>AnÃ¡lise de Perdas na Colheita:</h3>
+                    <div id="colh-output-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA 6: Culturas & Clima -->
+        <div id="tab-culturas" class="tab-content">
+            <div class="card">
+                <h2>ðŸ“Š Guia de Culturas, Zoneamento & Defensivos</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Selecione a cultura para ver o clima ideal, solo, estratÃ©gias de rotaÃ§Ã£o com sorgo e defensivos.</p>
+                
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label>Escolha a Cultura:</label>
+                    <select id="cultura-select" onchange="atualizarGuiaCultura()">
+                        <option value="soja">Soja (Glycine max)</option>
+                        <option value="milho">Milho (Zea mays)</option>
+                        <option value="cana">Cana-de-AÃ§Ãºcar (Saccharum officinarum)</option>
+                        <option value="citros">Citros (Laranja/LimÃ£o)</option>
+                        <option value="sorgo">Sorgo (Sorghum bicolor) - RotaÃ§Ã£o Potente</option>
+                        <option value="horticas">HortaliÃ§as (Folhosas/Frutos)</option>
+                    </select>
+                </div>
+
+                <div id="cultura-detalhes" class="result-box"></div>
+            </div>
+        </div>
+
+        <!-- ABA 7: GestÃ£o Financeira -->
+        <div id="tab-financeiro" class="tab-content">
+            <div class="card">
+                <h2>ðŸ’° Bloco de Notas, Custos e BalanÃ§o (AgrÃ´nomo & Produtor)</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Registre custos operacionais, insumos e calcule margens de lucro ou prejuÃ­zo da safra.</p>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Perfil do UsuÃ¡rio:</label>
+                        <select id="fin-perfil">
+                            <option value="agronomo">Engenheiro AgrÃ´nomo (Consultoria / Vendas)</option>
+                            <option value="produtor">Produtor Rural (GestÃ£o da Fazenda)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>TalhÃ£o / IdentificaÃ§Ã£o:</label>
+                        <input type="text" id="fin-talhao" placeholder="Ex: TalhÃ£o 01 - Soja Principal">
+                    </div>
+                    <div class="form-group">
+                        <label>Custo Total Investido (R$):</label>
+                        <input type="number" id="fin-custos" placeholder="Ex: 4000.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Receita Bruta Esperada (R$):</label>
+                        <input type="number" id="fin-receita" placeholder="Ex: 6200.00">
                     </div>
                 </div>
-            </section>
-
-            <!-- TAB 5: GESTÃO FINANCEIRA -->
-            <section id="tab-financeiro" class="space-y-6 hidden">
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="flex justify-between items-center mb-6">
-                        <div>
-                            <h2 class="text-lg font-bold text-white"><i class="fa-solid fa-wallet text-agro-400 mr-2"></i> Gestão de Custos & Rentabilidade da Safra</h2>
-                            <p class="text-xs text-slate-400">Acompanhe despesas com defensivos, fertilizantes, maquinário e sementes versus receita esperada.</p>
-                        </div>
-                        <button onclick="resetFinanceiro()" class="px-3 py-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 rounded-xl text-xs font-semibold transition-all">
-                            <i class="fa-solid fa-trash mr-1"></i> Limpar Dados
-                        </button>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Gastos com Defensivos (R$)</label>
-                            <input type="number" id="fin-defensivos" value="45000" oninput="calcularFinanceiro()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Gastos com Fertilizantes / Adubos (R$)</label>
-                            <input type="number" id="fin-fertilizantes" value="85000" oninput="calcularFinanceiro()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Gastos com Sementes (R$)</label>
-                            <input type="number" id="fin-sementes" value="32000" oninput="calcularFinanceiro()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Gastos com Maquinário / Operação (R$)</label>
-                            <input type="number" id="fin-maquinario" value="28000" oninput="calcularFinanceiro()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Receita Estimada da Produção (R$)</label>
-                            <input type="number" id="fin-receita" value="240000" oninput="calcularFinanceiro()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Início / Fim da Safra</label>
-                            <div class="flex space-x-2">
-                                <input type="date" id="fin-inicio" value="2025-10-01" class="w-1/2 bg-slate-900 border border-slate-700 rounded-xl p-2 text-[11px] text-slate-200 outline-none">
-                                <input type="date" id="fin-fim" value="2026-03-30" class="w-1/2 bg-slate-900 border border-slate-700 rounded-xl p-2 text-[11px] text-slate-200 outline-none">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Financial Summary Box -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800">
-                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                            <span class="text-xs text-slate-400">Custo Total da Safra</span>
-                            <h3 id="res-custo-total" class="text-xl font-bold text-white mt-1">R$ 0,00</h3>
-                        </div>
-                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                            <span class="text-xs text-slate-400">Lucro Líquido Estimado</span>
-                            <h3 id="res-lucro-liquido" class="text-xl font-bold text-emerald-400 mt-1">R$ 0,00</h3>
-                        </div>
-                        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                            <span class="text-xs text-slate-400">Margem de Retorno & Status</span>
-                            <h3 id="res-margem" class="text-xl font-bold text-agro-400 mt-1">0% (Lucro)</h3>
-                        </div>
-                    </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>AnotaÃ§Ãµes TÃ©cnicas / ObservaÃ§Ãµes:</label>
+                    <textarea id="fin-obs" rows="3" placeholder="Ex: Safra desenvolvendo bem, controle de percevejo realizado no V8..."></textarea>
                 </div>
-            </section>
+                <button class="btn-action" onclick="calcularFinanceiro()">ðŸ’¾ Processar BalanÃ§o Financeiro</button>
 
-            <!-- TAB 6: NOTAS & COMPARTILHAMENTO DE PERFIS -->
-            <section id="tab-notas" class="space-y-6 hidden">
-                <div class="glass-card p-6 rounded-2xl">
-                    <div class="flex justify-between items-center mb-6">
-                        <div>
-                            <h2 class="text-lg font-bold text-white"><i class="fa-solid fa-notes-medical text-agro-400 mr-2"></i> Bloco de Notas Integrado (Agrônomo & Produtor)</h2>
-                            <p class="text-xs text-slate-400">Anote recomendações técnicas, vendas de insumos realizadas ou apontamentos de safra sincronizados por perfil.</p>
-                        </div>
-                        <button onclick="salvarAnotacao()" class="px-4 py-2 bg-agro-600 hover:bg-agro-500 text-white text-xs font-semibold rounded-xl shadow transition-all">
-                            <i class="fa-solid fa-floppy-disk mr-2"></i> Salvar Nota
-                        </button>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Categoria da Nota</label>
-                            <select id="nota-categoria" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                                <option value="Agrônomo - Venda de Insumos & RT">Eng. Agrônomo (Venda de Insumos / RT)</option>
-                                <option value="Produtor - Apontamento de Safra">Produtor Rural (Fechamento / Gastos)</option>
-                                <option value="Geral - Manejo de Solo">Manejo de Solo & Pragas Geral</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-300 mb-1">Título da Anotação</label>
-                            <input type="text" id="nota-titulo" placeholder="Ex: Venda de Adubo NPK e recomendação de calda..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-slate-200 outline-none">
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Conteúdo Detalhado</label>
-                        <textarea id="nota-conteudo" rows="4" placeholder="Escreva observações técnicas ou financeiras..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 outline-none resize-none"></textarea>
-                    </div>
-
-                    <!-- Lista de Anotações Salvas -->
-                    <div class="mt-6">
-                        <h3 class="text-sm font-bold text-slate-200 mb-3">Histórico de Notas Salvas (Salvo no Navegador)</h3>
-                        <div id="lista-notas" class="space-y-3">
-                            <!-- Injected dynamically -->
-                        </div>
-                    </div>
+                <div id="fin-resultado" class="result-box" style="display:none; margin-top:20px;">
+                    <h3>BalanÃ§o EconÃ´mico:</h3>
+                    <div id="fin-output-content"></div>
                 </div>
-            </section>
+            </div>
+        </div>
 
-        </main>
     </div>
 
-    <!-- JavaScript Application Logic -->
+    <footer>
+        <p>AgroAssist Pro &copy; 2026 | Desenvolvido para Engenheiros AgrÃ´nomos e Produtores Rurais</p>
+    </footer>
+
     <script>
-        // Active Profile State
-        let currentProfile = 'produtor';
+        function switchTab(evt, tabName) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
 
-        function switchProfile(profile) {
-            currentProfile = profile;
-            const btnProd = document.getElementById('btn-profile-produtor');
-            const btnAgro = document.getElementById('btn-profile-agronomo');
-            const badge = document.getElementById('active-profile-badge');
+        // 1. DiagnÃ³stico
+        function analisarDiagnostico() {
+            const cultura = document.getElementById('diag-cultura').value;
+            const texto = document.getElementById('diag-texto').value.trim();
+            const resBox = document.getElementById('diag-resultado');
+            const outText = document.getElementById('diag-output-text');
 
-            if (profile === 'produtor') {
-                btnProd.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-agro-600 text-white shadow";
-                btnAgro.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:text-white";
-                badge.innerText = "Perfil: Produtor Rural";
-            } else {
-                btnAgro.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-agro-600 text-white shadow";
-                btnProd.className = "px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-300 hover:text-white";
-                badge.innerText = "Perfil: Engenheiro Agrônomo";
+            if(!texto) {
+                alert('Por favor, descreva o sintoma observado.');
+                return;
             }
+
+            outText.innerHTML = `Para a cultura de **${cultura.toUpperCase()}**, analisando o relato *" ${texto} "*:<br><br>` +
+                `â€¢ **PossÃ­vel Causa:** DesequilÃ­brio nutricional ou incidÃªncia patolÃ³gica/praga caracterÃ­stica.<br>` +
+                `â€¢ **RecomendaÃ§Ã£o:** Vistoria in loco no talhÃ£o para contagem de pragas e aferiÃ§Ã£o de raÃ­zes/folhas.<br>` +
+                `â€¢ **DecisÃ£o TÃ©cnica:** Avaliar necessidade de receituÃ¡rio agronÃ´mico especÃ­fico.`;
+            resBox.style.display = 'block';
         }
 
-        function switchTab(tabId) {
-            const tabs = ['dashboard', 'culturas', 'solo', 'mecanizacao', 'financeiro', 'notas'];
-            tabs.forEach(t => {
-                const sec = document.getElementById(`tab-${t}`);
-                const nav = document.getElementById(`nav-${t}`);
-                if (t === tabId) {
-                    sec.classList.remove('hidden');
-                    nav.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all bg-agro-600/20 text-agro-400 border border-agro-500/30";
-                } else {
-                    sec.classList.add('hidden');
-                    nav.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-900/60 hover:text-white";
-                }
-            });
+        // 2. Solo & AdubaÃ§Ã£o
+        function calcularSolo() {
+            const cultura = document.getElementById('solo-cultura').value;
+            const ph = parseFloat(document.getElementById('solo-ph').value) || 0;
+            const al = parseFloat(document.getElementById('solo-al').value) || 0;
+            const ca = parseFloat(document.getElementById('solo-ca').value) || 0;
+            const mg = parseFloat(document.getElementById('solo-mg').value) || 0;
+            const k = parseFloat(document.getElementById('solo-k').value) || 0;
+            const prnt = parseFloat(document.getElementById('solo-prnt').value) || 80;
+
+            let vDesejado = (cultura === 'milho' || cultura === 'citros') ? 70 : (cultura === 'sorgo' ? 50 : 60);
+            const sb = ca + mg + k;
+            const t = sb + al;
+            const vAtual = t > 0 ? (sb / t) * 100 : 0;
+
+            let nc = ((vDesejado - vAtual) * t) / prnt;
+            if(nc < 0) nc = 0;
+
+            let pRec = "90 kg/ha ($P_2O_5$)", kRec = "80 kg/ha ($K_2O$)", nRec = "FixaÃ§Ã£o BiolÃ³gica / Cobertura";
+            if(cultura === 'cana') { pRec = "100 kg/ha"; kRec = "120 kg/ha"; nRec = "120 kg/ha (Cobertura)"; }
+
+            document.getElementById('solo-output-content').innerHTML = `
+                <p>â€¢ <b>Soma de Bases (SB):</b> ${sb.toFixed(2)} cmolc/dmÂ³</p>
+                <p>â€¢ <b>CTC Efetiva (t):</b> ${t.toFixed(2)} cmolc/dmÂ³</p>
+                <p>â€¢ <b>SaturaÃ§Ã£o de Bases Atual (V%):</b> ${vAtual.toFixed(1)}% (Alvo: ${vDesejado}%)</p>
+                <hr style="border: 0; border-top: 1px solid var(--card-border); margin: 10px 0;">
+                <p>â€¢ <b style="color: var(--primary);">Necessidade de Calagem (NC):</b> <b>${nc.toFixed(2)} t/ha</b> (PRNT ${prnt}%)</p>
+                <p>â€¢ <b>FÃ³sforo Recomendado:</b> ${pRec}</p>
+                <p>â€¢ <b>PotÃ¡ssio Recomendado:</b> ${kRec}</p>
+                <p>â€¢ <b>NitrogÃªnio Recomendado:</b> ${nRec}</p>
+            `;
+            document.getElementById('solo-resultado').style.display = 'block';
         }
 
-        // Database of Cultures
-        const culturasDB = {
+        // 3. Pulverizador
+        function calcularPulverizador() {
+            const vel = parseFloat(document.getElementById('pulv-vel').value) || 0;
+            const esp = parseFloat(document.getElementById('pulv-esp').value) || 0;
+            const vol = parseFloat(document.getElementById('pulv-volume').value) || 0;
+            const alvo = document.getElementById('pulv-alvo').value;
+
+            if(vel <= 0 || esp <= 0 || vol <= 0) {
+                alert('Preencha os campos numÃ©ricos do pulverizador.');
+                return;
+            }
+
+            const qBico = (vel * esp * vol) / 60000;
+            let tipoBico = "Ponta de Jato Leque Ã‚ngulo 110Â° (Gotas MÃ©dias)";
+            if(alvo === 'sistemico') tipoBico = "Ponta de InduÃ§Ã£o de Ar (AI) - Gotas Grossas/Muito Grossas (Anti-deriva)";
+
+            document.getElementById('pulv-output-content').innerHTML = `
+                <p>â€¢ <b style="color: var(--primary);">VazÃ£o Calculada por Bico:</b> <b>${qBico.toFixed(3)} L/minuto</b></p>
+                <p>â€¢ <b>Modelo de Ponta Indicado:</b> ${tipoBico}</p>
+                <p>â€¢ <b>PressÃ£o Operacional Recomendada:</b> 2.0 a 4.5 bar</p>
+            `;
+            document.getElementById('pulv-resultado').style.display = 'block';
+        }
+
+        // 4. Plantadeira
+        function calcularPlantadeira() {
+            const pop = parseFloat(document.getElementById('plant-pop').value) || 0;
+            const espCm = parseFloat(document.getElementById('plant-esp').value) || 0;
+            const germ = parseFloat(document.getElementById('plant-germ').value) || 95;
+
+            if(pop <= 0 || espCm <= 0) {
+                alert('Preencha os dados da plantadeira.');
+                return;
+            }
+
+            // Sementes por metro = (PopulaÃ§Ã£o * EspaÃ§amento (m)) / (10000 * (GerminaÃ§Ã£o / 100))
+            const espM = espCm / 100;
+            const sementesReais = (pop * espM) / (10000 * (germ / 100));
+            const distEntreSementesCm = 100 / sementesReais;
+
+            document.getElementById('plant-output-content').innerHTML = `
+                <p>â€¢ <b style="color: var(--primary);">Sementes Ãºteis por metro linear:</b> <b>${sementesReais.toFixed(1)} sementes/metro</b></p>
+                <p>â€¢ <b>DistÃ¢ncia mÃ©dia entre sementes na linha:</b> ${distEntreSementesCm.toFixed(1)} cm</p>
+                <p>â€¢ <b>CorreÃ§Ã£o de GerminaÃ§Ã£o (${germ}%):</b> Ajustado para garantir o estande final desejado de ${pop.toLocaleString()} plantas/ha.</p>
+            `;
+            document.getElementById('plant-resultado').style.display = 'block';
+        }
+
+        // 5. Colheitadeira
+        function calcularColheitadeira() {
+            const cultura = document.getElementById('colh-cultura').value;
+            const graosM2 = parseFloat(document.getElementById('colh-graos').value) || 0;
+            const prodSacas = parseFloat(document.getElementById('colh-prod').value) || 60;
+
+            // Fator aproximado de conversÃ£o de grÃ£os/mÂ² para sacas/ha dependendo da cultura
+            let fatorSacas = 4.8; // Exemplo padrÃ£o soja (~4 a 5 grÃ£os/mÂ² por saca/ha)
+            if(cultura === 'milho') fatorSacas = 2.2;
+            if(cultura === 'sorgo') fatorSacas = 15.0;
+
+            const perdasSacas = graosM2 / (cultura === 'soja' ? 4.8 : (cultura === 'milho' ? 2.5 : 12));
+            const pctPerda = prodSacas > 0 ? (perdasSacas / prodSacas) * 100 : 0;
+
+            let avaliacao = "Perdas dentro do limite aceitÃ¡vel (< 1%).";
+            if(pctPerda > 2.5) avaliacao = "Alerta: Perdas elevadas! Verificar regulagem do molinete, abertura do cÃ´ncavo ou velocidade do vento na limpeza.";
+
+            document.getElementById('colh-output-content').innerHTML = `
+                <p>â€¢ <b>GrÃ£os contados no solo ($1m^2$):</b> ${graosM2} grÃ£os</p>
+                <p>â€¢ <b style="color: var(--primary);">Perda Estimada:</b> ${perdasSacas.toFixed(2)} sacas/ha</p>
+                <p>â€¢ <b>Percentual de Perda sobre a Produtividade (${prodSacas} sc/ha):</b> <b>${pctPerda.toFixed(2)}%</b></p>
+                <p>â€¢ <b>AvaliaÃ§Ã£o Operacional:</b> ${avaliacao}</p>
+            `;
+            document.getElementById('colh-resultado').style.display = 'block';
+        }
+
+        // 6. Guia de Culturas
+        const baseCulturas = {
             soja: {
                 nome: "Soja (Glycine max)",
-                zoneamento: "Alta aptidão em MT, PR, RS, GO, MS, SP e BA. Excelente adaptação em solos argilosos e de textura média.",
-                rotacao: "Milho safrinha, Sorgo forrageiro ou Braquiária para reestruturação física do solo e controle de nematoides.",
-                defensivos: "Fungicidas multissítios e triazóis/estrobilurinas; Inseticidas (Neonicotinóides e Benzoatos para lagartas) do nível moderado ao forte.",
-                detalhes: "Exigente em fósforo e potássio. Necessita inoculação com Bradyrhizobium."
+                clima: "Temperatura 20Â°C a 30Â°C. Chuvas de 450 a 800 mm por ciclo.",
+                solo: "Textura mÃ©dia a argilosa, pH 6.0 a 6.5.",
+                rotacao: "RotaÃ§Ã£o com Milho Safrinha e **Sorgo** para quebrar ciclo de nematoides.",
+                defensivos: "Glifosato, Estrobilurinas + TriazÃ³is, Inseticidas para percevejos."
             },
             milho: {
                 nome: "Milho (Zea mays)",
-                zoneamento: "Cultivado em todo o território nacional (Safra e Safrinha). Requer boa pluviosidade ou irrigação por pivô.",
-                rotacao: "Soja (sucessão clássica verão/inverno), Crotalária para adubação verde.",
-                defensivos: "Herbicidas seletivos (Atrazina, Glifosato), Inseticidas para Cigarrinha do milho e Lagarta-do-cartucho.",
-                detalhes: "Altamente responsivo à adubação nitrogenada em cobertura."
+                clima: "Temperatura 24Â°C a 30Â°C. Necessidade hÃ­drica de 500 a 700 mm.",
+                solo: "Solos profundos, fÃ©rteis e ricos em matÃ©ria orgÃ¢nica.",
+                rotacao: "ConsÃ³rcio com Brachiaria ou plantio de Sorgo para palhada.",
+                defensivos: "Atrazina, Mesotriona, Controle biolÃ³gico para Spodoptera."
             },
             cana: {
-                nome: "Cana-de-Açúcar (Saccharum officinarum)",
-                zoneamento: "Forte presença em São Pradesh (SP), Goiás e região Nordeste. Solos profundos e bem drenados.",
-                rotacao: "Reforma de canavial com Soja ou Amendoim por 1 a 2 anos para quebra de ciclo de pragas.",
-                defensivos: "Herbicidas pré-emergentes de longo residual, Mataguasas e inseticidas para broca da cana (Cotesia flavipes).",
-                detalhes: "Cultura perene/semi-perene de alta exigência em potássio e vinhaça."
-            },
-            sorgo: {
-                nome: "Sorgo (Sorghum bicolor)",
-                zoneamento: "Excelente adaptabilidade em regiões de déficit hídrico (Centro-Oeste e Nordeste). Rústico e resistente.",
-                rotacao: "Ótima cultura de cobertura e sucessão para plantio direto e palhada pesada.",
-                defensivos: "Herbicidas à base de atrazina e controle moderado de pulgões.",
-                detalhes: "Pouco valorizado, mas altamente estratégico em anos de seca prolongada."
+                nome: "Cana-de-AÃ§Ãºcar",
+                clima: "Tropical/subtropical, insolaÃ§Ã£o alta, 1200 a 1500 mm/ano.",
+                solo: "Latossolos corrigidos com vinhaÃ§a.",
+                rotacao: "Reforma de canavial com Sorgo para descompactaÃ§Ã£o biolÃ³gica.",
+                defensivos: "Amicarbazona, Tebutiurona, *Cotesia flavipes*."
             },
             citros: {
-                nome: "Citros (Laranja / Limão)",
-                zoneamento: "Região central e norte de São Paulo, Triângulo Mineiro. Clima subtropical/tropical.",
-                rotacao: "Manutenção de entrelinhas com gramíneas ou leguminosas perenes.",
-                defensivos: "Controle rigoroso de psilídeo (vetor do Greening / HLB) e ácaros com acaricidas específicos.",
-                detalhes: "Exige poda de limpeza, manejo fitossanitário contínuo e irrigação complementar."
+                nome: "Citros (Laranja/LimÃ£o)",
+                clima: "23Â°C a 32Â°C, chuvas de 1000 a 1500 mm anuais + irrigaÃ§Ã£o.",
+                solo: "Areno-argilosos, boa drenagem.",
+                rotacao: "Cobertura verde nas entrelinhas.",
+                defensivos: "Ã“leos minerais, controle de vetor do Greening."
             },
-            hortalicas: {
-                nome: "Hortaliças (Folhosas / Frutos)",
-                zoneamento: "Próximos a grandes centros consumidores, cinturões verdes municipais.",
-                rotacao: "Rotação estrita de famílias botânicas para evitar murchas bacterianas e patógenos de solo.",
-                defensivos: "Fungicidas protetores e inseticidas biológicos (Bt) de baixa carência.",
-                detalhes: "Ciclo curto, alta rentabilidade e exigência rigorosa de irrigação e fertirrigação."
+            sorgo: {
+                nome: "Sorgo (Sorghum bicolor) - RotaÃ§Ã£o",
+                clima: "Altamente rÃºstico, tolerante a seca severa. 25Â°C a 30Â°C.",
+                solo: "AdaptÃ¡vel a solos de menor fertilidade e Ã¡cidos.",
+                rotacao: "A cultura coringa: rompe doenÃ§as da soja/milho e descompacta o solo.",
+                defensivos: "Atrazina e inseticidas seletivos."
             },
-            frutiferas: {
-                nome: "Frutíferas (Geral)",
-                zoneamento: "Vales irrigados (São Francisco), regiões serranas (clima temperado para maçã/pêssego).",
-                rotacao: "Cobertura de solo permanente nas ruas do pomar.",
-                defensivos: "Iscas para moscas-das-frutas, caldas preventivas e fungicidas sistêmicos.",
-                detalhes: "Investimento inicial alto com retorno a médio/longo prazo."
+            horticas: {
+                nome: "HortaliÃ§as",
+                clima: "Ambiente protegido recomendado, 18Â°C a 26Â°C.",
+                solo: "Ricos em hÃºmus, irrigaÃ§Ã£o por gotejamento.",
+                rotacao: "RotaÃ§Ã£o rigorosa entre famÃ­lias botÃ¢nicas.",
+                defensivos: "BiolÃ³gicos (*Bacillus*, *Trichoderma*)."
             }
         };
 
-        function loadCulturaData() {
-            const key = document.getElementById('cultura-select').value;
-            const item = culturasDB[key];
-            const container = document.getElementById('cultura-detalhes');
-            
-            container.innerHTML = `
-                <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
-                    <span class="text-xs text-agro-400 font-bold uppercase">Zoneamento & Aptidão</span>
-                    <p class="text-xs text-slate-300">${item.zoneamento}</p>
-                </div>
-                <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
-                    <span class="text-xs text-agro-400 font-bold uppercase">Rotação de Solo Recomendada</span>
-                    <p class="text-xs text-slate-300">${item.rotacao}</p>
-                </div>
-                <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
-                    <span class="text-xs text-agro-400 font-bold uppercase">Guia de Defensivos</span>
-                    <p class="text-xs text-slate-300">${item.defensivos}</p>
-                </div>
+        function atualizarGuiaCultura() {
+            const sel = document.getElementById('cultura-select').value;
+            const d = baseCulturas[sel];
+            document.getElementById('cultura-detalhes').innerHTML = `
+                <span class="badge">${d.nome}</span>
+                <p>â€¢ <b>Clima:</b> ${d.clima}</p>
+                <p>â€¢ <b>Solo:</b> ${d.solo}</p>
+                <p>â€¢ <b style="color: var(--primary);">RotaÃ§Ã£o:</b> ${d.rotacao}</p>
+                <p>â€¢ <b>Defensivos:</b> ${d.defensivos}</p>
             `;
         }
 
-        function analisarSintoma() {
-            const text = document.getElementById('symptom-input').value;
-            const resBox = document.getElementById('symptom-result');
-            if(!text.trim()) {
-                alert('Por favor, descreva o sintoma ou problema.');
-                return;
-            }
-            resBox.classList.remove('hidden');
-            resBox.innerHTML = `
-                <p class="font-bold text-agro-400"><i class="fa-solid fa-circle-check mr-1"></i> Diagnóstico Preliminar AgroMind:</p>
-                <p>Com base na descrição ("${text}"), identificamos indícios de estresse nutricional ou incidência fitossanitária precoce.</p>
-                <p class="text-slate-400"><strong>Recomendação do Agrônomo Virtual:</strong> Realizar inspeção física no talhão afetado, conferir teores de micronutrientes via análise foliar e aplicar defensivo específico do catálogo recomendado caso o nível de dano econômico (NDE) seja ultrapassado.</p>
-            `;
-        }
+        window.onload = function() { atualizarGuiaCultura(); }
 
-        // Soil Calculator Logic
-        function calcularSolo() {
-            const ph = parseFloat(document.getElementById('solo-ph').value);
-            const vAtual = parseFloat(document.getElementById('solo-v-atual').value);
-            const p = parseFloat(document.getElementById('solo-p').value);
-            const k = parseFloat(document.getElementById('solo-k').value);
-            const cultura = document.getElementById('solo-cultura').value;
-
-            // V% Desejada = 60% por padrão
-            const vDesejado = 60;
-            const nc = Math.max(0, (vDesejado - vAtual) * 1.5); // Fórmula simplificada NC t/ha (Prм. PR)
-            
-            let recP = p < 12 ? "Alta necessidade de Fósforo (Aplicar superfosfato ou MAP no plantio: ~120 kg/ha P2O5)" : "Teor de Fósforo adequado na amostra.";
-            let recK = k < 0.20 ? "Necessidade de Potássio (Aplicar Cloreto de Potássio KCL: ~90 kg/ha K2O)" : "Teor de Potássio satisfatório.";
-
-            const resBox = document.getElementById('solo-resultados');
-            const resContent = document.getElementById('solo-result-content');
-            resBox.classList.remove('hidden');
-
-            resContent.innerHTML = `
-                <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
-                    <span class="text-slate-400 block mb-1">Necessidade de Calagem (NC):</span>
-                    <strong class="text-agro-400 text-sm">${nc.toFixed(2)} t/ha</strong> (Calcário Dolomítico PRNT 80%)
-                </div>
-                <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
-                    <span class="text-slate-400 block mb-1">Recomendação de Fósforo (P):</span>
-                    <span class="text-slate-200">${recP}</span>
-                </div>
-                <div class="p-3 bg-slate-900 rounded-lg border border-slate-800">
-                    <span class="text-slate-400 block mb-1">Recomendação de Potássio (K):</span>
-                    <span class="text-slate-200">${recK}</span>
-                </div>
-            `;
-        }
-
-        // Sprayer Calculator Logic
-        function calcularPulverizador() {
-            const vel = parseFloat(document.getElementById('pulv-vel').value);
-            const esp = parseFloat(document.getElementById('pulv-esp').value);
-            const vol = parseFloat(document.getElementById('pulv-volume').value);
-            const alvo = document.getElementById('pulv-alvo').value;
-
-            // Vazão do bico (L/min) = (V * E * Q) / 600
-            const qBico = (vel * esp * vol) / 600;
-
-            let bicoRecomendado = "Pontas de Jato Cônico Vazio ou Indução de Ar (Gotas Médias)";
-            if(alvo === 'contato') bicoRecomendado = "Pontas de Jato Leque Plano com Indução de Ar (Gotas Grossas a Muito Grossas para evitar deriva)";
-            if(alvo === 'dessecacao') bicoRecomendado = "Pontas Leque Ângulo Duplo ou Indução Média";
-
-            const resBox = document.getElementById('pulv-resultados');
-            resBox.classList.remove('hidden');
-            resBox.innerHTML = `
-                <h4 class="font-bold text-agro-400"><i class="fa-solid fa-circle-check mr-1"></i> Resultado do Cálculo de Calibração:</h4>
-                <p><strong>Vazão por Bico Necessária:</strong> <span class="text-white text-base">${qBico.toFixed(2)} L/min</span></p>
-                <p><strong>Tipo de Ponta Indicado:</strong> <span class="text-slate-200">${bicoRecomendado}</span></p>
-                <p class="text-slate-400">Certifique-se de aferir a pressão manométrica no manômetro da barra (recom. 2.0 a 3.5 bar).</p>
-            `;
-        }
-
-        // Financial Calculations
+        // 7. Financeiro
         function calcularFinanceiro() {
-            const def = parseFloat(document.getElementById('fin-defensivos').value) || 0;
-            const fert = parseFloat(document.getElementById('fin-fertilizantes').value) || 0;
-            const sem = parseFloat(document.getElementById('fin-sementes').value) || 0;
-            const maq = parseFloat(document.getElementById('fin-maquinario').value) || 0;
-            const rec = parseFloat(document.getElementById('fin-receita').value) || 0;
+            const perfil = document.getElementById('fin-perfil').value;
+            const talhao = document.getElementById('fin-talhao').value || 'Ãrea Geral';
+            const custos = parseFloat(document.getElementById('fin-custos').value) || 0;
+            const receita = parseFloat(document.getElementById('fin-receita').value) || 0;
+            const obs = document.getElementById('fin-obs').value || 'Sem observaÃ§Ãµes.';
 
-            const custoTotal = def + fert + sem + maq;
-            const lucroLiq = rec - custoTotal;
-            const margem = custoTotal > 0 ? (lucroLiq / custoTotal) * 100 : 0;
+            const lucro = receita - custos;
+            const margem = custos > 0 ? (lucro / custos) * 100 : 0;
+            const status = lucro >= 0 ? `<span style="color: var(--primary);">Lucro LÃ­quido Positivo ðŸŽ‰</span>` : `<span style="color: var(--danger);">PrejuÃ­zo âš </span>`;
 
-            document.getElementById('dash-total-custo').innerText = `R$ ${custoTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-            document.getElementById('dash-total-lucro').innerText = `R$ ${lucroLiq.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-            document.getElementById('dash-lucro-perc').innerText = `Margem: ${margem.toFixed(1)}%`;
-
-            document.getElementById('res-custo-total').innerText = `R$ ${custoTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-            const lblLucro = document.getElementById('res-lucro-liquido');
-            lblLucro.innerText = `R$ ${lucroLiq.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-            lblLucro.className = lucroLiq >= 0 ? "text-xl font-bold text-emerald-400 mt-1" : "text-xl font-bold text-rose-400 mt-1";
-
-            document.getElementById('res-margem').innerText = `${margem.toFixed(1)}% (${lucroLiq >= 0 ? 'Lucro' : 'Prejuízo'})`;
+            document.getElementById('fin-output-content').innerHTML = `
+                <p>â€¢ <b>Perfil:</b> ${perfil === 'agronomo' ? 'Engenheiro AgrÃ´nomo' : 'Produtor Rural'}</p>
+                <p>â€¢ <b>TalhÃ£o:</b> ${talhao}</p>
+                <p>â€¢ <b>Custos Totais:</b> R$ ${custos.toFixed(2)}</p>
+                <p>â€¢ <b>Receita Bruta:</b> R$ ${receita.toFixed(2)}</p>
+                <hr style="border: 0; border-top: 1px solid var(--card-border); margin: 10px 0;">
+                <p>â€¢ <b>BalanÃ§o:</b> R$ ${lucro.toFixed(2)} (${status})</p>
+                <p>â€¢ <b>Margem Percentual:</b> <b>${margem.toFixed(1)}%</b></p>
+                <p>â€¢ <b>AnotaÃ§Ãµes:</b> "${obs}"</p>
+            `;
+            document.getElementById('fin-resultado').style.display = 'block';
         }
-
-        function resetFinanceiro() {
-            document.getElementById('fin-defensivos').value = 0;
-            document.getElementById('fin-fertilizantes').value = 0;
-            document.getElementById('fin-sementes').value = 0;
-            document.getElementById('fin-maquinario').value = 0;
-            document.getElementById('fin-receita').value = 0;
-            calcularFinanceiro();
-        }
-
-        // Notes System with localStorage
-        function salvarAnotacao() {
-            const cat = document.getElementById('nota-categoria').value;
-            const titulo = document.getElementById('nota-titulo').value;
-            const conteudo = document.getElementById('nota-conteudo').value;
-
-            if(!titulo.trim() || !conteudo.trim()) {
-                alert('Preencha o título e o conteúdo da anotação.');
-                return;
-            }
-
-            const notas = JSON.parse(localStorage.getItem('agromind_notas') || '[]');
-            notas.unshift({
-                id: Date.now(),
-                categoria: cat,
-                titulo: titulo,
-                conteudo: conteudo,
-                data: new Date().toLocaleDateString('pt-BR')
-            });
-
-            localStorage.setItem('agromind_notas', JSON.stringify(notas));
-            document.getElementById('nota-titulo').value = '';
-            document.getElementById('nota-conteudo').value = '';
-            carregarNotas();
-        }
-
-        function carregarNotas() {
-            const notas = JSON.parse(localStorage.getItem('agromind_notas') || '[]');
-            const container = document.getElementById('lista-notas');
-            if(notas.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 italic">Nenhuma anotação registrada ainda.</p>`;
-                return;
-            }
-
-            container.innerHTML = notas.map(n => `
-                <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
-                    <div class="flex justify-between items-center">
-                        <span class="text-[10px] px-2 py-0.5 rounded bg-agro-500/20 text-agro-300 font-semibold">${n.categoria}</span>
-                        <span class="text-[10px] text-slate-500">${n.data}</span>
-                    </div>
-                    <h4 class="font-bold text-sm text-white">${n.titulo}</h4>
-                    <p class="text-xs text-slate-300">${n.conteudo}</p>
-                </div>
-            `).join('');
-        }
-
-        // Initialize on load
-        window.onload = function() {
-            loadCulturaData();
-            calcularFinanceiro();
-            carregarNotas();
-        };
     </script>
 </body>
 </html>
-```
