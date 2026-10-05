@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroAssist Pro - InteligÃªncia AgronÃ´mica e GestÃ£o de Campo</title>
+    <title>AgroAssist Pro - Inteligência Agronômica e Gestão de Campo</title>
     <style>
         :root {
             --primary: #10b981;
@@ -240,56 +240,56 @@
 <body>
 
     <header>
-        <h1>ðŸŒ± AgroAssist Pro</h1>
-        <p>Plataforma AvanÃ§ada de AuxÃ­lio AgronÃ´mico, MecanizaÃ§Ã£o e GestÃ£o de Safras</p>
+        <h1>🌱 AgroAssist Pro</h1>
+        <p>Plataforma Avançada de Auxílio Agronômico, Mecanização e Gestão de Safras</p>
     </header>
 
     <div class="container">
-        <!-- NavegaÃ§Ã£o de Abas -->
+        <!-- Navegação de Abas -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab(event, 'tab-diagnostico')">ðŸ’¬ DiagnÃ³stico & IA</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-solo')">ðŸ§ª Solo & AdubaÃ§Ã£o</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-pulverizador')">ðŸ’¦ Pulverizador</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-plantadeira')">ðŸšœ Plantadeira</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-colheitadeira')">ðŸŒ¾ Colheitadeira</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-culturas')">ðŸ“Š Culturas & Clima</button>
-            <button class="tab-btn" onclick="switchTab(event, 'tab-financeiro')">ðŸ’° GestÃ£o & Custos</button>
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-diagnostico')">💬 Diagnóstico & IA</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-solo')">🧪 Solo & Adubação</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-pulverizador')">💦 Pulverizador</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-plantadeira')">🚜 Plantadeira</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-colheitadeira')">🌾 Colheitadeira</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-culturas')">📊 Culturas & Clima</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-financeiro')">💰 Gestão & Custos</button>
         </div>
 
-        <!-- ABA 1: DiagnÃ³stico -->
+        <!-- ABA 1: Diagnóstico -->
         <div id="tab-diagnostico" class="tab-content active">
             <div class="card">
-                <h2>ðŸ’¬ DiagnÃ³stico RÃ¡pido de Campo</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Descreva os sintomas visuais observados na lavoura para orientaÃ§Ã£o preliminar de manejo.</p>
+                <h2>💬 Diagnóstico Rápido de Campo</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Descreva os sintomas visuais observados na lavoura para orientação preliminar de manejo.</p>
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label>Cultura Principal:</label>
                     <select id="diag-cultura">
                         <option value="soja">Soja</option>
                         <option value="milho">Milho</option>
-                        <option value="cana">Cana-de-AÃ§Ãºcar</option>
+                        <option value="cana">Cana-de-Açúcar</option>
                         <option value="citros">Citros</option>
                         <option value="sorgo">Sorgo</option>
-                        <option value="horticas">HortaliÃ§as</option>
+                        <option value="horticas">Hortaliças</option>
                     </select>
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label>Descreva o sintoma ou problema:</label>
-                    <textarea id="diag-texto" rows="4" placeholder="Ex: Folhas baixeiras com clorose, presenÃ§a de lagartas, murcha em reboleiras..."></textarea>
+                    <textarea id="diag-texto" rows="4" placeholder="Ex: Folhas baixeiras com clorose, presença de lagartas, murcha em reboleiras..."></textarea>
                 </div>
-                <button class="btn-action" onclick="analisarDiagnostico()">ðŸ” Gerar Parecer TÃ©cnico</button>
+                <button class="btn-action" onclick="analisarDiagnostico()">🔍 Gerar Parecer Técnico</button>
 
                 <div id="diag-resultado" class="result-box" style="display:none; margin-top:20px;">
-                    <h3>Parecer TÃ©cnico Preliminar:</h3>
+                    <h3>Parecer Técnico Preliminar:</h3>
                     <p id="diag-output-text"></p>
                 </div>
             </div>
         </div>
 
-        <!-- ABA 2: Solo & AdubaÃ§Ã£o -->
+        <!-- ABA 2: Solo & Adubação -->
         <div id="tab-solo" class="tab-content">
             <div class="card">
-                <h2>ðŸ§ª Calculadora de Calagem e AdubaÃ§Ã£o</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Insira os dados da anÃ¡lise de solo para calcular calagem (PRNT) e recomendaÃ§Ã£o de nutrientes.</p>
+                <h2>🧪 Calculadora de Calagem e Adubação</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Insira os dados da análise de solo para calcular calagem (PRNT) e recomendação de nutrientes.</p>
                 
                 <div class="form-grid">
                     <div class="form-group">
@@ -297,7 +297,7 @@
                         <select id="solo-cultura">
                             <option value="soja">Soja (V% desejada: 60%)</option>
                             <option value="milho">Milho (V% desejada: 70%)</option>
-                            <option value="cana">Cana-de-AÃ§Ãºcar (V% desejada: 60%)</option>
+                            <option value="cana">Cana-de-Açúcar (V% desejada: 60%)</option>
                             <option value="citros">Citros (V% desejada: 70%)</option>
                             <option value="sorgo">Sorgo (V% desejada: 50%)</option>
                         </select>
@@ -307,30 +307,30 @@
                         <input type="number" step="0.1" id="solo-ph" placeholder="Ex: 5.2">
                     </div>
                     <div class="form-group">
-                        <label>AlumÃ­nio ($Al^{3+}$) [cmolc/dmÂ³]:</label>
+                        <label>Alumínio (Al³⁺) [cmolc/dm³]:</label>
                         <input type="number" step="0.1" id="solo-al" placeholder="Ex: 0.4">
                     </div>
                     <div class="form-group">
-                        <label>CÃ¡lcio ($Ca^{2+}$) [cmolc/dmÂ³]:</label>
+                        <label>Cálcio (Ca²⁺) [cmolc/dm³]:</label>
                         <input type="number" step="0.1" id="solo-ca" placeholder="Ex: 2.5">
                     </div>
                     <div class="form-group">
-                        <label>MagnÃ©sio ($Mg^{2+}$) [cmolc/dmÂ³]:</label>
+                        <label>Magnésio (Mg²⁺) [cmolc/dm³]:</label>
                         <input type="number" step="0.1" id="solo-mg" placeholder="Ex: 1.0">
                     </div>
                     <div class="form-group">
-                        <label>PotÃ¡ssio ($K^+$) [cmolc/dmÂ³]:</label>
+                        <label>Potássio (K⁺) [cmolc/dm³]:</label>
                         <input type="number" step="0.01" id="solo-k" placeholder="Ex: 0.25">
                     </div>
                     <div class="form-group">
-                        <label>PRNT do CalcÃ¡rio (%):</label>
+                        <label>PRNT do Calcário (%):</label>
                         <input type="number" id="solo-prnt" placeholder="Ex: 80" value="80">
                     </div>
                 </div>
-                <button class="btn-action" onclick="calcularSolo()">âš™ï¸ Calcular CorreÃ§Ã£o e AdubaÃ§Ã£o</button>
+                <button class="btn-action" onclick="calcularSolo()">⚙️ Calcular Correção e Adubação</button>
 
                 <div id="solo-resultado" class="result-box" style="display:none; margin-top:20px;">
-                    <h3>Resultados AgronÃ´micos:</h3>
+                    <h3>Resultados Agronômicos:</h3>
                     <div id="solo-output-content"></div>
                 </div>
             </div>
@@ -339,8 +339,8 @@
         <!-- ABA 3: Pulverizador -->
         <div id="tab-pulverizador" class="tab-content">
             <div class="card">
-                <h2>ðŸ’¦ Regulagem e Bicos de PulverizaÃ§Ã£o</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Calcule a vazÃ£o exata por bico e selecione o modelo de ponta ideal de acordo com o alvo fitossanitÃ¡rio.</p>
+                <h2>💦 Regulagem e Bicos de Pulverização</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Calcule a vazão exata por bico e selecione o modelo de ponta ideal de acordo com o alvo fitossanitário.</p>
                 
                 <div class="form-grid">
                     <div class="form-group">
@@ -348,7 +348,7 @@
                         <input type="number" step="0.5" id="pulv-vel" placeholder="Ex: 12">
                     </div>
                     <div class="form-group">
-                        <label>EspaÃ§amento entre Bicos na Barra (cm):</label>
+                        <label>Espaçamento entre Bicos na Barra (cm):</label>
                         <input type="number" id="pulv-esp" placeholder="Ex: 50" value="50">
                     </div>
                     <div class="form-group">
@@ -356,18 +356,18 @@
                         <input type="number" id="pulv-volume" placeholder="Ex: 150" value="150">
                     </div>
                     <div class="form-group">
-                        <label>Alvo da AplicaÃ§Ã£o:</label>
+                        <label>Alvo da Aplicação:</label>
                         <select id="pulv-alvo">
-                            <option value="sistemico">Herbicida SistÃªmico / Solo (Gotas Grossas - Anti-deriva)</option>
-                            <option value="fungicida">Fungicida / Inseticida de Contato (Gotas MÃ©dias/Finas - Cobertura)</option>
-                            <option value="geral">InduÃ§Ã£o de Ar Geral (Alta Versatilidade)</option>
+                            <option value="sistemico">Herbicida Sistêmico / Solo (Gotas Grossas - Anti-deriva)</option>
+                            <option value="fungicida">Fungicida / Inseticida de Contato (Gotas Médias/Finas - Cobertura)</option>
+                            <option value="geral">Indução de Ar Geral (Alta Versatilidade)</option>
                         </select>
                     </div>
                 </div>
-                <button class="btn-action" onclick="calcularPulverizador()">ðŸ› ï¸ Calcular VazÃ£o e Ponta de Bico</button>
+                <button class="btn-action" onclick="calcularPulverizador()">🛠️ Calcular Vazão e Ponta de Bico</button>
 
                 <div id="pulv-resultado" class="result-box" style="display:none; margin-top:20px;">
-                    <h3>ParÃ¢metros de PulverizaÃ§Ã£o:</h3>
+                    <h3>Parâmetros de Pulverização:</h3>
                     <div id="pulv-output-content"></div>
                 </div>
             </div>
@@ -376,32 +376,32 @@
         <!-- ABA 4: Plantadeira -->
         <div id="tab-plantadeira" class="tab-content">
             <div class="card">
-                <h2>ðŸšœ Regulagem de Plantadeiras & PopulaÃ§Ã£o de Plantas</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Calcule o nÃºmero de sementes por metro linear necessÃ¡rias para atingir a populaÃ§Ã£o desejada por hectare e a distÃ¢ncia entre sementes.</p>
+                <h2>🚜 Regulagem de Plantadeiras & População de Plantas</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Calcule o número de sementes por metro linear necessárias para atingir a população desejada por hectare e a distância entre sementes.</p>
                 
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Cultura:</label>
                         <select id="plant-cultura">
-                            <option value="soja">Soja (PopulaÃ§Ã£o tÃ­pica: 250.000 a 320.000 pl/ha)</option>
-                            <option value="milho">Milho (PopulaÃ§Ã£o tÃ­pica: 55.000 a 75.000 pl/ha)</option>
-                            <option value="sorgo">Sorgo (PopulaÃ§Ã£o tÃ­pica: 150.000 a 220.000 pl/ha)</option>
+                            <option value="soja">Soja (População típica: 250.000 a 320.000 pl/ha)</option>
+                            <option value="milho">Milho (População típica: 55.000 a 75.000 pl/ha)</option>
+                            <option value="sorgo">Sorgo (População típica: 150.000 a 220.000 pl/ha)</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>PopulaÃ§Ã£o Desejada (Plantas / Hectare):</label>
+                        <label>População Desejada (Plantas / Hectare):</label>
                         <input type="number" id="plant-pop" placeholder="Ex: 300000" value="300000">
                     </div>
                     <div class="form-group">
-                        <label>EspaÃ§amento entre Entrelinhas (cm):</label>
+                        <label>Espaçamento entre Entrelinhas (cm):</label>
                         <input type="number" id="plant-esp" placeholder="Ex: 45" value="45">
                     </div>
                     <div class="form-group">
-                        <label>Taxa de GerminaÃ§Ã£o Esperada das Sementes (%):</label>
+                        <label>Taxa de Germinação Esperada das Sementes (%):</label>
                         <input type="number" id="plant-germ" placeholder="Ex: 95" value="95">
                     </div>
                 </div>
-                <button class="btn-action" onclick="calcularPlantadeira()">ðŸ“ Calcular Sementes por Metro</button>
+                <button class="btn-action" onclick="calcularPlantadeira()">📐 Calcular Sementes por Metro</button>
 
                 <div id="plant-resultado" class="result-box" style="display:none; margin-top:20px;">
                     <h3>Diretrizes de Plantio:</h3>
@@ -413,31 +413,31 @@
         <!-- ABA 5: Colheitadeira -->
         <div id="tab-colheitadeira" class="tab-content">
             <div class="card">
-                <h2>ðŸŒ¾ Monitoramento e Perdas na Colheita de GrÃ£os</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Avalie as perdas quantitativas de grÃ£os na plataforma e no sistema de trilha/separaÃ§Ã£o por saco coletor ($1m^2$).</p>
+                <h2>🌾 Monitoramento e Perdas na Colheita de Grãos</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Avalie as perdas quantitativas de grãos na plataforma e no sistema de trilha/separação por saco coletor (1m²).</p>
                 
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Cultura Colhida:</label>
                         <select id="colh-cultura">
-                            <option value="soja">Soja (Peso de 1000 grÃ£os mÃ©dio: 160g)</option>
-                            <option value="milho">Milho (Peso de 1000 grÃ£os mÃ©dio: 300g)</option>
-                            <option value="sorgo">Sorgo (Peso de 1000 grÃ£os mÃ©dio: 25g)</option>
+                            <option value="soja">Soja (Peso de 1000 grãos médio: 160g)</option>
+                            <option value="milho">Milho (Peso de 1000 grãos médio: 300g)</option>
+                            <option value="sorgo">Sorgo (Peso de 1000 grãos médio: 25g)</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>NÂº de GrÃ£os Contados em $1m^2$ (ChÃ£o):</label>
-                        <input type="number" id="colh-graos" placeholder="Ex: 4 de soja por mÂ² equivalem a ~1 saca/ha">
+                        <label>Nº de Grãos Contados em 1m² (Chão):</label>
+                        <input type="number" id="colh-graos" placeholder="Ex: 4 de soja por m² equivalem a ~1 saca/ha">
                     </div>
                     <div class="form-group">
                         <label>Produtividade Estimada (Sacas / Hectare):</label>
                         <input type="number" id="colh-prod" placeholder="Ex: 60" value="60">
                     </div>
                 </div>
-                <button class="btn-action" onclick="calcularColheitadeira()">ðŸ“Š Calcular Perdas e EficiÃªncia</button>
+                <button class="btn-action" onclick="calcularColheitadeira()">📊 Calcular Perdas e Eficiência</button>
 
                 <div id="colh-resultado" class="result-box" style="display:none; margin-top:20px;">
-                    <h3>AnÃ¡lise de Perdas na Colheita:</h3>
+                    <h3>Análise de Perdas na Colheita:</h3>
                     <div id="colh-output-content"></div>
                 </div>
             </div>
@@ -446,18 +446,18 @@
         <!-- ABA 6: Culturas & Clima -->
         <div id="tab-culturas" class="tab-content">
             <div class="card">
-                <h2>ðŸ“Š Guia de Culturas, Zoneamento & Defensivos</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Selecione a cultura para ver o clima ideal, solo, estratÃ©gias de rotaÃ§Ã£o com sorgo e defensivos.</p>
+                <h2>📊 Guia de Culturas, Zoneamento & Defensivos</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Selecione a cultura para ver o clima ideal, solo, estratégias de rotação com sorgo e defensivos.</p>
                 
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label>Escolha a Cultura:</label>
                     <select id="cultura-select" onchange="atualizarGuiaCultura()">
                         <option value="soja">Soja (Glycine max)</option>
                         <option value="milho">Milho (Zea mays)</option>
-                        <option value="cana">Cana-de-AÃ§Ãºcar (Saccharum officinarum)</option>
-                        <option value="citros">Citros (Laranja/LimÃ£o)</option>
-                        <option value="sorgo">Sorgo (Sorghum bicolor) - RotaÃ§Ã£o Potente</option>
-                        <option value="horticas">HortaliÃ§as (Folhosas/Frutos)</option>
+                        <option value="cana">Cana-de-Açúcar (Saccharum officinarum)</option>
+                        <option value="citros">Citros (Laranja/Limão)</option>
+                        <option value="sorgo">Sorgo (Sorghum bicolor) - Rotação Potente</option>
+                        <option value="horticas">Hortaliças (Folhosas/Frutos)</option>
                     </select>
                 </div>
 
@@ -465,23 +465,23 @@
             </div>
         </div>
 
-        <!-- ABA 7: GestÃ£o Financeira -->
+        <!-- ABA 7: Gestão Financeira -->
         <div id="tab-financeiro" class="tab-content">
             <div class="card">
-                <h2>ðŸ’° Bloco de Notas, Custos e BalanÃ§o (AgrÃ´nomo & Produtor)</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Registre custos operacionais, insumos e calcule margens de lucro ou prejuÃ­zo da safra.</p>
+                <h2>💰 Bloco de Notas, Custos e Balanço (Agrônomo & Produtor)</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Registre custos operacionais, insumos e calcule margens de lucro ou prejuízo da safra.</p>
                 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>Perfil do UsuÃ¡rio:</label>
+                        <label>Perfil do Usuário:</label>
                         <select id="fin-perfil">
-                            <option value="agronomo">Engenheiro AgrÃ´nomo (Consultoria / Vendas)</option>
-                            <option value="produtor">Produtor Rural (GestÃ£o da Fazenda)</option>
+                            <option value="agronomo">Engenheiro Agrônomo (Consultoria / Vendas)</option>
+                            <option value="produtor">Produtor Rural (Gestão da Fazenda)</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>TalhÃ£o / IdentificaÃ§Ã£o:</label>
-                        <input type="text" id="fin-talhao" placeholder="Ex: TalhÃ£o 01 - Soja Principal">
+                        <label>Talhão / Identificação:</label>
+                        <input type="text" id="fin-talhao" placeholder="Ex: Talhão 01 - Soja Principal">
                     </div>
                     <div class="form-group">
                         <label>Custo Total Investido (R$):</label>
@@ -493,13 +493,13 @@
                     </div>
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">
-                    <label>AnotaÃ§Ãµes TÃ©cnicas / ObservaÃ§Ãµes:</label>
+                    <label>Anotações Técnicas / Observações:</label>
                     <textarea id="fin-obs" rows="3" placeholder="Ex: Safra desenvolvendo bem, controle de percevejo realizado no V8..."></textarea>
                 </div>
-                <button class="btn-action" onclick="calcularFinanceiro()">ðŸ’¾ Processar BalanÃ§o Financeiro</button>
+                <button class="btn-action" onclick="calcularFinanceiro()">💾 Processar Balanço Financeiro</button>
 
                 <div id="fin-resultado" class="result-box" style="display:none; margin-top:20px;">
-                    <h3>BalanÃ§o EconÃ´mico:</h3>
+                    <h3>Balanço Econômico:</h3>
                     <div id="fin-output-content"></div>
                 </div>
             </div>
@@ -508,7 +508,7 @@
     </div>
 
     <footer>
-        <p>AgroAssist Pro &copy; 2026 | Desenvolvido para Engenheiros AgrÃ´nomos e Produtores Rurais</p>
+        <p>AgroAssist Pro &copy; 2026 | Desenvolvido para Engenheiros Agrônomos e Produtores Rurais</p>
     </footer>
 
     <script>
@@ -519,7 +519,7 @@
             evt.currentTarget.classList.add('active');
         }
 
-        // 1. DiagnÃ³stico
+        // 1. Diagnóstico
         function analisarDiagnostico() {
             const cultura = document.getElementById('diag-cultura').value;
             const texto = document.getElementById('diag-texto').value.trim();
@@ -531,14 +531,14 @@
                 return;
             }
 
-            outText.innerHTML = `Para a cultura de **${cultura.toUpperCase()}**, analisando o relato *" ${texto} "*:<br><br>` +
-                `â€¢ **PossÃ­vel Causa:** DesequilÃ­brio nutricional ou incidÃªncia patolÃ³gica/praga caracterÃ­stica.<br>` +
-                `â€¢ **RecomendaÃ§Ã£o:** Vistoria in loco no talhÃ£o para contagem de pragas e aferiÃ§Ã£o de raÃ­zes/folhas.<br>` +
-                `â€¢ **DecisÃ£o TÃ©cnica:** Avaliar necessidade de receituÃ¡rio agronÃ´mico especÃ­fico.`;
+            outText.innerHTML = `Para a cultura de <b>${cultura.toUpperCase()}</b>, analisando o relato *" ${texto} "*:<br><br>` +
+                `• <b>Possível Causa:</b> Desequilíbrio nutricional ou incidência patológica/praga característica.<br>` +
+                `• <b>Recomendação:</b> Vistoria in loco no talhão para contagem de pragas e aferição de raízes/folhas.<br>` +
+                `• <b>Decisão Técnica:</b> Avaliar necessidade de receituário agronômico específico.`;
             resBox.style.display = 'block';
         }
 
-        // 2. Solo & AdubaÃ§Ã£o
+        // 2. Solo & Adubação
         function calcularSolo() {
             const cultura = document.getElementById('solo-cultura').value;
             const ph = parseFloat(document.getElementById('solo-ph').value) || 0;
@@ -556,18 +556,18 @@
             let nc = ((vDesejado - vAtual) * t) / prnt;
             if(nc < 0) nc = 0;
 
-            let pRec = "90 kg/ha ($P_2O_5$)", kRec = "80 kg/ha ($K_2O$)", nRec = "FixaÃ§Ã£o BiolÃ³gica / Cobertura";
+            let pRec = "90 kg/ha (P₂O₅)", kRec = "80 kg/ha (K₂O)", nRec = "Fixação Biológica / Cobertura";
             if(cultura === 'cana') { pRec = "100 kg/ha"; kRec = "120 kg/ha"; nRec = "120 kg/ha (Cobertura)"; }
 
             document.getElementById('solo-output-content').innerHTML = `
-                <p>â€¢ <b>Soma de Bases (SB):</b> ${sb.toFixed(2)} cmolc/dmÂ³</p>
-                <p>â€¢ <b>CTC Efetiva (t):</b> ${t.toFixed(2)} cmolc/dmÂ³</p>
-                <p>â€¢ <b>SaturaÃ§Ã£o de Bases Atual (V%):</b> ${vAtual.toFixed(1)}% (Alvo: ${vDesejado}%)</p>
+                <p>• <b>Soma de Bases (SB):</b> ${sb.toFixed(2)} cmolc/dm³</p>
+                <p>• <b>CTC Efetiva (t):</b> ${t.toFixed(2)} cmolc/dm³</p>
+                <p>• <b>Saturação de Bases Atual (V%):</b> ${vAtual.toFixed(1)}% (Alvo: ${vDesejado}%)</p>
                 <hr style="border: 0; border-top: 1px solid var(--card-border); margin: 10px 0;">
-                <p>â€¢ <b style="color: var(--primary);">Necessidade de Calagem (NC):</b> <b>${nc.toFixed(2)} t/ha</b> (PRNT ${prnt}%)</p>
-                <p>â€¢ <b>FÃ³sforo Recomendado:</b> ${pRec}</p>
-                <p>â€¢ <b>PotÃ¡ssio Recomendado:</b> ${kRec}</p>
-                <p>â€¢ <b>NitrogÃªnio Recomendado:</b> ${nRec}</p>
+                <p>• <b style="color: var(--primary);">Necessidade de Calagem (NC):</b> <b>${nc.toFixed(2)} t/ha</b> (PRNT ${prnt}%)</p>
+                <p>• <b>Fósforo Recomendado:</b> ${pRec}</p>
+                <p>• <b>Potássio Recomendado:</b> ${kRec}</p>
+                <p>• <b>Nitrogênio Recomendado:</b> ${nRec}</p>
             `;
             document.getElementById('solo-resultado').style.display = 'block';
         }
@@ -580,18 +580,18 @@
             const alvo = document.getElementById('pulv-alvo').value;
 
             if(vel <= 0 || esp <= 0 || vol <= 0) {
-                alert('Preencha os campos numÃ©ricos do pulverizador.');
+                alert('Preencha os campos numéricos do pulverizador.');
                 return;
             }
 
             const qBico = (vel * esp * vol) / 60000;
-            let tipoBico = "Ponta de Jato Leque Ã‚ngulo 110Â° (Gotas MÃ©dias)";
-            if(alvo === 'sistemico') tipoBico = "Ponta de InduÃ§Ã£o de Ar (AI) - Gotas Grossas/Muito Grossas (Anti-deriva)";
+            let tipoBico = "Ponta de Jato Leque Ângulo 110° (Gotas Médias)";
+            if(alvo === 'sistemico') tipoBico = "Ponta de Indução de Ar (AI) - Gotas Grossas/Muito Grossas (Anti-deriva)";
 
             document.getElementById('pulv-output-content').innerHTML = `
-                <p>â€¢ <b style="color: var(--primary);">VazÃ£o Calculada por Bico:</b> <b>${qBico.toFixed(3)} L/minuto</b></p>
-                <p>â€¢ <b>Modelo de Ponta Indicado:</b> ${tipoBico}</p>
-                <p>â€¢ <b>PressÃ£o Operacional Recomendada:</b> 2.0 a 4.5 bar</p>
+                <p>• <b style="color: var(--primary);">Vazão Calculada por Bico:</b> <b>${qBico.toFixed(3)} L/minuto</b></p>
+                <p>• <b>Modelo de Ponta Indicado:</b> ${tipoBico}</p>
+                <p>• <b>Pressão Operacional Recomendada:</b> 2.0 a 4.5 bar</p>
             `;
             document.getElementById('pulv-resultado').style.display = 'block';
         }
@@ -607,15 +607,14 @@
                 return;
             }
 
-            // Sementes por metro = (PopulaÃ§Ã£o * EspaÃ§amento (m)) / (10000 * (GerminaÃ§Ã£o / 100))
             const espM = espCm / 100;
             const sementesReais = (pop * espM) / (10000 * (germ / 100));
             const distEntreSementesCm = 100 / sementesReais;
 
             document.getElementById('plant-output-content').innerHTML = `
-                <p>â€¢ <b style="color: var(--primary);">Sementes Ãºteis por metro linear:</b> <b>${sementesReais.toFixed(1)} sementes/metro</b></p>
-                <p>â€¢ <b>DistÃ¢ncia mÃ©dia entre sementes na linha:</b> ${distEntreSementesCm.toFixed(1)} cm</p>
-                <p>â€¢ <b>CorreÃ§Ã£o de GerminaÃ§Ã£o (${germ}%):</b> Ajustado para garantir o estande final desejado de ${pop.toLocaleString()} plantas/ha.</p>
+                <p>• <b style="color: var(--primary);">Sementes úteis por metro linear:</b> <b>${sementesReais.toFixed(1)} sementes/metro</b></p>
+                <p>• <b>Distância média entre sementes na linha:</b> ${distEntreSementesCm.toFixed(1)} cm</p>
+                <p>• <b>Correção de Germinação (${germ}%):</b> Ajustado para garantir o estande final desejado de ${pop.toLocaleString()} plantas/ha.</p>
             `;
             document.getElementById('plant-resultado').style.display = 'block';
         }
@@ -626,22 +625,17 @@
             const graosM2 = parseFloat(document.getElementById('colh-graos').value) || 0;
             const prodSacas = parseFloat(document.getElementById('colh-prod').value) || 60;
 
-            // Fator aproximado de conversÃ£o de grÃ£os/mÂ² para sacas/ha dependendo da cultura
-            let fatorSacas = 4.8; // Exemplo padrÃ£o soja (~4 a 5 grÃ£os/mÂ² por saca/ha)
-            if(cultura === 'milho') fatorSacas = 2.2;
-            if(cultura === 'sorgo') fatorSacas = 15.0;
-
             const perdasSacas = graosM2 / (cultura === 'soja' ? 4.8 : (cultura === 'milho' ? 2.5 : 12));
             const pctPerda = prodSacas > 0 ? (perdasSacas / prodSacas) * 100 : 0;
 
-            let avaliacao = "Perdas dentro do limite aceitÃ¡vel (< 1%).";
-            if(pctPerda > 2.5) avaliacao = "Alerta: Perdas elevadas! Verificar regulagem do molinete, abertura do cÃ´ncavo ou velocidade do vento na limpeza.";
+            let avaliacao = "Perdas dentro do limite aceitável (< 1%).";
+            if(pctPerda > 2.5) avaliacao = "Alerta: Perdas elevadas! Verificar regulagem do molinete, abertura do côncavo ou velocidade do vento na limpeza.";
 
             document.getElementById('colh-output-content').innerHTML = `
-                <p>â€¢ <b>GrÃ£os contados no solo ($1m^2$):</b> ${graosM2} grÃ£os</p>
-                <p>â€¢ <b style="color: var(--primary);">Perda Estimada:</b> ${perdasSacas.toFixed(2)} sacas/ha</p>
-                <p>â€¢ <b>Percentual de Perda sobre a Produtividade (${prodSacas} sc/ha):</b> <b>${pctPerda.toFixed(2)}%</b></p>
-                <p>â€¢ <b>AvaliaÃ§Ã£o Operacional:</b> ${avaliacao}</p>
+                <p>• <b>Grãos contados no solo (1m²):</b> ${graosM2} grãos</p>
+                <p>• <b style="color: var(--primary);">Perda Estimada:</b> ${perdasSacas.toFixed(2)} sacas/ha</p>
+                <p>• <b>Percentual de Perda sobre a Produtividade (${prodSacas} sc/ha):</b> <b>${pctPerda.toFixed(2)}%</b></p>
+                <p>• <b>Avaliação Operacional:</b> ${avaliacao}</p>
             `;
             document.getElementById('colh-resultado').style.display = 'block';
         }
@@ -650,45 +644,45 @@
         const baseCulturas = {
             soja: {
                 nome: "Soja (Glycine max)",
-                clima: "Temperatura 20Â°C a 30Â°C. Chuvas de 450 a 800 mm por ciclo.",
-                solo: "Textura mÃ©dia a argilosa, pH 6.0 a 6.5.",
-                rotacao: "RotaÃ§Ã£o com Milho Safrinha e **Sorgo** para quebrar ciclo de nematoides.",
-                defensivos: "Glifosato, Estrobilurinas + TriazÃ³is, Inseticidas para percevejos."
+                clima: "Temperatura 20°C a 30°C. Chuvas de 450 a 800 mm por ciclo.",
+                solo: "Textura média a argilosa, pH 6.0 a 6.5.",
+                rotacao: "Rotação com Milho Safrinha e <b>Sorgo</b> para quebrar ciclo de nematoides.",
+                defensivos: "Glifosato, Estrobilurinas + Triazóis, Inseticidas para percevejos."
             },
             milho: {
                 nome: "Milho (Zea mays)",
-                clima: "Temperatura 24Â°C a 30Â°C. Necessidade hÃ­drica de 500 a 700 mm.",
-                solo: "Solos profundos, fÃ©rteis e ricos em matÃ©ria orgÃ¢nica.",
-                rotacao: "ConsÃ³rcio com Brachiaria ou plantio de Sorgo para palhada.",
-                defensivos: "Atrazina, Mesotriona, Controle biolÃ³gico para Spodoptera."
+                clima: "Temperatura 24°C a 30°C. Necessidade hídrica de 500 a 700 mm.",
+                solo: "Solos profundos, férteis e ricos em matéria orgânica.",
+                rotacao: "Consórcio com Brachiaria ou plantio de Sorgo para palhada.",
+                defensivos: "Atrazina, Mesotriona, Controle biológico para Spodoptera."
             },
             cana: {
-                nome: "Cana-de-AÃ§Ãºcar",
-                clima: "Tropical/subtropical, insolaÃ§Ã£o alta, 1200 a 1500 mm/ano.",
-                solo: "Latossolos corrigidos com vinhaÃ§a.",
-                rotacao: "Reforma de canavial com Sorgo para descompactaÃ§Ã£o biolÃ³gica.",
-                defensivos: "Amicarbazona, Tebutiurona, *Cotesia flavipes*."
+                nome: "Cana-de-Açúcar",
+                clima: "Tropical/subtropical, insolação alta, 1200 a 1500 mm/ano.",
+                solo: "Latossolos corrigidos com vinhaça.",
+                rotacao: "Reforma de canavial com Sorgo para descompactação biológica.",
+                defensivos: "Amicarbazona, Tebutiurona, Cotesia flavipes."
             },
             citros: {
-                nome: "Citros (Laranja/LimÃ£o)",
-                clima: "23Â°C a 32Â°C, chuvas de 1000 a 1500 mm anuais + irrigaÃ§Ã£o.",
+                nome: "Citros (Laranja/Limão)",
+                clima: "23°C a 32°C, chuvas de 1000 a 1500 mm anuais + irrigação.",
                 solo: "Areno-argilosos, boa drenagem.",
                 rotacao: "Cobertura verde nas entrelinhas.",
-                defensivos: "Ã“leos minerais, controle de vetor do Greening."
+                defensivos: "Óleos minerais, controle de vetor do Greening."
             },
             sorgo: {
-                nome: "Sorgo (Sorghum bicolor) - RotaÃ§Ã£o",
-                clima: "Altamente rÃºstico, tolerante a seca severa. 25Â°C a 30Â°C.",
-                solo: "AdaptÃ¡vel a solos de menor fertilidade e Ã¡cidos.",
-                rotacao: "A cultura coringa: rompe doenÃ§as da soja/milho e descompacta o solo.",
+                nome: "Sorgo (Sorghum bicolor) - Rotação",
+                clima: "Altamente rústico, tolerante a seca severa. 25°C a 30°C.",
+                solo: "Adaptável a solos de menor fertilidade e ácidos.",
+                rotacao: "A cultura coringa: rompe doenças da soja/milho e descompacta o solo.",
                 defensivos: "Atrazina e inseticidas seletivos."
             },
             horticas: {
-                nome: "HortaliÃ§as",
-                clima: "Ambiente protegido recomendado, 18Â°C a 26Â°C.",
-                solo: "Ricos em hÃºmus, irrigaÃ§Ã£o por gotejamento.",
-                rotacao: "RotaÃ§Ã£o rigorosa entre famÃ­lias botÃ¢nicas.",
-                defensivos: "BiolÃ³gicos (*Bacillus*, *Trichoderma*)."
+                nome: "Hortaliças",
+                clima: "Ambiente protegido recomendado, 18°C a 26°C.",
+                solo: "Ricos em húmus, irrigação por gotejamento.",
+                rotacao: "Rotação rigorosa entre famílias botânicas.",
+                defensivos: "Biológicos (Bacillus, Trichoderma)."
             }
         };
 
@@ -697,10 +691,10 @@
             const d = baseCulturas[sel];
             document.getElementById('cultura-detalhes').innerHTML = `
                 <span class="badge">${d.nome}</span>
-                <p>â€¢ <b>Clima:</b> ${d.clima}</p>
-                <p>â€¢ <b>Solo:</b> ${d.solo}</p>
-                <p>â€¢ <b style="color: var(--primary);">RotaÃ§Ã£o:</b> ${d.rotacao}</p>
-                <p>â€¢ <b>Defensivos:</b> ${d.defensivos}</p>
+                <p>• <b>Clima:</b> ${d.clima}</p>
+                <p>• <b>Solo:</b> ${d.solo}</p>
+                <p>• <b style="color: var(--primary);">Rotação:</b> ${d.rotacao}</p>
+                <p>• <b>Defensivos:</b> ${d.defensivos}</p>
             `;
         }
 
@@ -709,24 +703,24 @@
         // 7. Financeiro
         function calcularFinanceiro() {
             const perfil = document.getElementById('fin-perfil').value;
-            const talhao = document.getElementById('fin-talhao').value || 'Ãrea Geral';
+            const talhao = document.getElementById('fin-talhao').value || 'Área Geral';
             const custos = parseFloat(document.getElementById('fin-custos').value) || 0;
             const receita = parseFloat(document.getElementById('fin-receita').value) || 0;
-            const obs = document.getElementById('fin-obs').value || 'Sem observaÃ§Ãµes.';
+            const obs = document.getElementById('fin-obs').value || 'Sem observações.';
 
             const lucro = receita - custos;
             const margem = custos > 0 ? (lucro / custos) * 100 : 0;
-            const status = lucro >= 0 ? `<span style="color: var(--primary);">Lucro LÃ­quido Positivo ðŸŽ‰</span>` : `<span style="color: var(--danger);">PrejuÃ­zo âš </span>`;
+            const status = lucro >= 0 ? `<span style="color: var(--primary);">Lucro Líquido Positivo 🎉</span>` : `<span style="color: var(--danger);">Prejuízo ⚠</span>`;
 
             document.getElementById('fin-output-content').innerHTML = `
-                <p>â€¢ <b>Perfil:</b> ${perfil === 'agronomo' ? 'Engenheiro AgrÃ´nomo' : 'Produtor Rural'}</p>
-                <p>â€¢ <b>TalhÃ£o:</b> ${talhao}</p>
-                <p>â€¢ <b>Custos Totais:</b> R$ ${custos.toFixed(2)}</p>
-                <p>â€¢ <b>Receita Bruta:</b> R$ ${receita.toFixed(2)}</p>
+                <p>• <b>Perfil:</b> ${perfil === 'agronomo' ? 'Engenheiro Agrônomo' : 'Produtor Rural'}</p>
+                <p>• <b>Talhão:</b> ${talhao}</p>
+                <p>• <b>Custos Totais:</b> R$ ${custos.toFixed(2)}</p>
+                <p>• <b>Receita Bruta:</b> R$ ${receita.toFixed(2)}</p>
                 <hr style="border: 0; border-top: 1px solid var(--card-border); margin: 10px 0;">
-                <p>â€¢ <b>BalanÃ§o:</b> R$ ${lucro.toFixed(2)} (${status})</p>
-                <p>â€¢ <b>Margem Percentual:</b> <b>${margem.toFixed(1)}%</b></p>
-                <p>â€¢ <b>AnotaÃ§Ãµes:</b> "${obs}"</p>
+                <p>• <b>Balanço:</b> R$ ${lucro.toFixed(2)} (${status})</p>
+                <p>• <b>Margem Percentual:</b> <b>${margem.toFixed(1)}%</b></p>
+                <p>• <b>Anotações:</b> "${obs}"</p>
             `;
             document.getElementById('fin-resultado').style.display = 'block';
         }
